@@ -9,5 +9,6 @@ public class SpringAiAssistantApplication
 	public static void main(String[] args)
     {
 		SpringApplication.run(SpringAiAssistantApplication.class, args);
+        System.out.print("Spring AI project..!!");
 	}
 }
