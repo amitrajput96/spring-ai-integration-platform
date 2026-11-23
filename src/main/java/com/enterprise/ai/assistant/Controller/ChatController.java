@@ -12,73 +12,113 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
-@RequestMapping()
+@RequestMapping
 public class ChatController
 {
-
-//    private ChatClient chatClient;
+    // private ChatClient chatClient;
 
     private ChatService chatService;
 
-//    private ChatClient geminiAIChatModel;
-//    private ChatClient ollamaChatModel;
+    private ChatClient geminiAIChatModel;
 
-//    public ChatController(ChatClient.Builder builder)
-//    {
-//        this.chatClient = builder.build();
-//    }
+    // private ChatClient ollamaChatModel;
 
-//    public ChatController(@Qualifier("googleGenAiChatModel") GoogleGenAiChatModel googleGenAiChatModel, @Qualifier("ollamaChatModel") OllamaChatModel ollamaChatModel)
-//    {
-//        this.googleGenAiChatClient = ChatClient.builder(googleGenAiChatModel).build();
-//
-//        this.ollamaChatClient = ChatClient.builder(ollamaChatModel).build();
-//    }
 
-    //implemenenting Chat Model
-//    public ChatController(GoogleGenAiChatModel geminiAIChatModel)
-//    {
-//        System.out.println(geminiAIChatModel.getClass().getName());
-//        this.geminiAIChatModel = ChatClient.builder(geminiAIChatModel).build();
-//    }
+    // Constructor using ChatClient.Builder
 
-//    public ChatController(ChatModel chatModel)
-//    {
-//        System.out.println(chatModel.getClass().getName());
-//        this.chatClient = ChatClient.builder(chatModel).build();
-//    }
+    // public ChatController(ChatClient.Builder builder) {
+    //     this.chatClient = builder.build();
+    // }
 
-    public ChatController(ChatService chatService)
-    {
+
+    // Constructor using Google GenAI and Ollama Chat Models
+
+    // public ChatController(
+    //         @Qualifier("googleGenAiChatModel") GoogleGenAiChatModel googleGenAiChatModel,
+    //         @Qualifier("ollamaChatModel") OllamaChatModel ollamaChatModel) {
+
+    //     this.googleGenAiChatClient =
+    //             ChatClient.builder(googleGenAiChatModel).build();
+
+    //     this.ollamaChatClient =
+    //             ChatClient.builder(ollamaChatModel).build();
+    // }
+
+
+    // Implementing Chat Model
+
+    // public ChatController(GoogleGenAiChatModel geminiAIChatModel) {
+    //     System.out.println(geminiAIChatModel.getClass().getName());
+
+    //     this.geminiAIChatModel =
+    //             ChatClient.builder(geminiAIChatModel).build();
+    // }
+
+
+    // Constructor using ChatModel
+
+    // public ChatController(ChatModel chatModel) {
+    //     System.out.println(chatModel.getClass().getName());
+
+    //     this.chatClient = ChatClient.builder(chatModel).build();
+    // }
+
+
+    // Constructor Injection using ChatService
+
+    public ChatController(ChatService chatService) {
         this.chatService = chatService;
     }
 
-    //    @GetMapping("/chat")
-//    public ResponseEntity<String> chat(@RequestParam(value="q", required = true) String q)
-//    {
-//        var respone = geminiAIChatModel
-//                .prompt(q)
-//                .call()
-//                .content();
-//        return ResponseEntity.ok(respone);
-//    }
 
-//    @GetMapping("/chat")
-//    public ResponseEntity<String> chat(@RequestParam(value="q", required = true) String q)
-//    {
-//        var respone = chatClient
-//                .prompt(q)
-//                .call()
-//                .content();
-//        return ResponseEntity.ok(respone);
-//    }
+    // Chat API using Gemini AI
+
+    // @GetMapping("/chat")
+    // public ResponseEntity<String> chat(
+    //         @RequestParam(value = "q", required = true) String q) {
+
+    //     var response = geminiAIChatModel
+    //             .prompt(q)
+    //             .call()
+    //             .content();
+
+    //     return ResponseEntity.ok(response);
+    // }
+
+
+    // Chat API using ChatClient
+
+    // @GetMapping("/chat")
+    // public ResponseEntity<String> chat(
+    //         @RequestParam(value = "q", required = true) String q) {
+
+    //     var response = chatClient
+    //             .prompt(q)
+    //             .call()
+    //             .content();
+
+    //     return ResponseEntity.ok(response);
+    // }
+
+
+    // Chat API returning List of Tutorials
+
+    // @GetMapping("/chat")
+    // public ResponseEntity<List<Tut>> chat(
+    //         @RequestParam(value = "q", required = true) String q) {
+
+    //     return ResponseEntity.ok(chatService.chat(q));
+    // }
+
+
+    // Active Chat API using ChatService
 
     @GetMapping("/chat")
-    public ResponseEntity<List<Tut>> chat(@RequestParam(value="q", required = true) String q)
-    {
+    public ResponseEntity<String> chat(
+            @RequestParam(value = "q", required = true) String q) {
+
         return ResponseEntity.ok(chatService.chat(q));
     }
 }
