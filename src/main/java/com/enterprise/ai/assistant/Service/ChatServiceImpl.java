@@ -1,15 +1,16 @@
 package com.enterprise.ai.assistant.Service;
 
 import com.enterprise.ai.assistant.Entity.Tut;
-import com.google.api.client.util.Value;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 import java.util.Map;
@@ -131,4 +132,17 @@ public class ChatServiceImpl implements ChatService
                 .content();
 
     }
+
+    @Override
+    public Flux<String> streamChat(String query)
+    {
+        return this.chatClient
+                .prompt()
+                .system(system -> system.text(this.systemmessage))
+                .user(user -> user.text(this.usermessage)
+                        .param("concept", query))
+                .stream()
+                .content();
+    }
+
 }
